@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- MyCLI Bean -->
+    <bean id="myCLI" class="com.example.SolidBank.MyCLI" />
+
+    <!-- AccountDAO Bean -->
+    <bean id="accountDAO" class="com.example.SolidBank.MemoryAccountDAO" />
+
+    <!-- AccountCreationService Bean -->
+    <bean id="accountCreation" class="com.example.SolidBank.AccountCreationServiceImpl">
+        <constructor-arg ref="accountDAO" />
+    </bean>
+
+    <!-- AccountListingService Bean -->
+    <bean id="accountListing" class="com.example.SolidBank.AccountListingServiceImpl">
+        <constructor-arg ref="accountDAO" />
+    </bean>
+
+    <!-- BankCore Bean -->
+    <bean id="bankCore" class="com.example.SolidBank.BankCore">
+        <constructor-arg ref="accountCreation" />
+    </bean>
+
+    <!-- AccountBasicCLI Bean -->
+    <bean id="accountBasicCLI" class="com.example.SolidBank.AccountBasicCLI">
+        <constructor-arg ref="myCLI" />
+        <constructor-arg ref="bankCore" />
+        <constructor-arg ref="accountListing" />
+    </bean>
+
+</beans>
